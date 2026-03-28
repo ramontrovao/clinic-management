@@ -7,5 +7,4 @@ public class PatientRequestDTO {
     private String email;
     private LocalDate birthDate;
     private String imgUrl;
-    private LocalDate createdAt;
 }
