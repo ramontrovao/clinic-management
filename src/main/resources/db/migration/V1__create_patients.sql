@@ -1,0 +1,10 @@
+CREATE TABLE patients (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    birth_date DATE NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(25) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    img_url VARCHAR(255)
+)
