@@ -16,14 +16,18 @@ import java.util.List;
 public class PatientController {
     private final PatientService patientService;
 
+    @PostMapping
+    public ResponseEntity<PatientDTO> createPatient(@RequestBody PatientRequestDTO patientDto) {
+        return new ResponseEntity<>(patientService.createPatient(patientDto), HttpStatus.CREATED);
+    }
+
     @GetMapping
     public ResponseEntity<List<PatientDTO>> getAllPatients() {
         return ResponseEntity.ok(patientService.getAllPatients());
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public PatientDTO createPatient(@RequestBody PatientRequestDTO patientDto) {
-        return patientService.createPatient(patientDto);
+    @GetMapping("/{id}")
+    public ResponseEntity<PatientDTO> getPatientById(@PathVariable String id) {
+        return ResponseEntity.ok(patientService.getPatientById());
     }
 }
