@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +22,10 @@ public class PatientService {
         List<Patient> patientList = patientRepository.findAll();
 
         return patientMapper.toDtoList(patientList);
+    }
+
+    public PatientDTO getPatientById(UUID id) {
+        return patientRepository.findById(id).map(patientMapper::toDto).orElse(null);
     }
 
     public PatientDTO createPatient(PatientRequestDTO patientDto) {

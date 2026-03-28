@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,7 +28,13 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PatientDTO> getPatientById(@PathVariable String id) {
-        return ResponseEntity.ok(patientService.getPatientById());
+    public ResponseEntity<PatientDTO> getPatientById(@PathVariable UUID id) {
+        PatientDTO patientFound = patientService.getPatientById(id);
+
+        if (patientFound == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(patientFound);
     }
 }
