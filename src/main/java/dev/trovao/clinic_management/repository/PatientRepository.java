@@ -1,6 +1,6 @@
-package dev.trovao.clinic_management.repositories;
+package dev.trovao.clinic_management.repository;
 
-import dev.trovao.clinic_management.domain.Patient;
+import dev.trovao.clinic_management.domain.patient.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
