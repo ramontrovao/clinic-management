@@ -1,0 +1,1 @@
+ALTER TABLE patients ADD CONSTRAINT patients_email_unique UNIQUE (email);
