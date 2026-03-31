@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -33,6 +32,15 @@ public class PatientService {
         Patient createdPatient = patientRepository.save(patientEntity);
 
         return patientMapper.toDto(createdPatient);
+    }
+
+    public PatientDTO updatePatientById(UUID id, PatientRequestDTO patientDto) {
+        Patient patientExisting = patientRepository.findById(id).orElseThrow();
+        Patient patientUpdated = patientMapper.updateEntityFromDto(patientDto, patientExisting);
+
+        patientRepository.save(patientUpdated);
+
+        return patientMapper.toDto(patientUpdated);
     }
 
     public void deletePatientById(UUID id) {

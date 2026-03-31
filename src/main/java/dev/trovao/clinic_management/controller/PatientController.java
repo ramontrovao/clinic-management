@@ -38,6 +38,11 @@ public class PatientController {
         return ResponseEntity.ok(patientFound);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<PatientDTO> updatePatientById(@PathVariable UUID id, @RequestBody PatientRequestDTO patientDto) {
+        return ResponseEntity.ok(patientService.updatePatientById(id, patientDto));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deletePatientById(@PathVariable UUID id) {
         PatientDTO patientFound = patientService.getPatientById(id);
