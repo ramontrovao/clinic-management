@@ -3,6 +3,7 @@ package dev.trovao.clinic_management.controller;
 import dev.trovao.clinic_management.domain.patient.dto.PatientDTO;
 import dev.trovao.clinic_management.domain.patient.dto.PatientRequestDTO;
 import dev.trovao.clinic_management.service.PatientService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class PatientController {
     private final PatientService patientService;
 
     @PostMapping
-    public ResponseEntity<PatientDTO> createPatient(@RequestBody PatientRequestDTO patientDto) {
+    public ResponseEntity<PatientDTO> createPatient(@RequestBody @Valid PatientRequestDTO patientDto) {
         return new ResponseEntity<>(patientService.createPatient(patientDto), HttpStatus.CREATED);
     }
 
