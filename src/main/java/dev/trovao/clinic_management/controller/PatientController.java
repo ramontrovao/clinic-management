@@ -2,6 +2,7 @@ package dev.trovao.clinic_management.controller;
 
 import dev.trovao.clinic_management.domain.patient.dto.PatientDTO;
 import dev.trovao.clinic_management.domain.patient.dto.PatientRequestDTO;
+import dev.trovao.clinic_management.exception.patient.PatientNotFoundException;
 import dev.trovao.clinic_management.service.PatientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,7 @@ public class PatientController {
         PatientDTO patientFound = patientService.getPatientById(id);
 
         if (patientFound == null) {
-            return ResponseEntity.notFound().build();
+            throw new PatientNotFoundException();
         }
 
         return ResponseEntity.ok(patientFound);
@@ -49,7 +50,7 @@ public class PatientController {
         PatientDTO patientFound = patientService.getPatientById(id);
 
         if (patientFound == null) {
-            return ResponseEntity.notFound().build();
+            throw new PatientNotFoundException();
         }
 
         patientService.deletePatientById(id);

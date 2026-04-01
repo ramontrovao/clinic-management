@@ -1,4 +1,4 @@
-package dev.trovao.clinic_management.exception;
+package dev.trovao.clinic_management.exception.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

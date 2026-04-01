@@ -3,6 +3,7 @@ package dev.trovao.clinic_management.service;
 import dev.trovao.clinic_management.domain.patient.Patient;
 import dev.trovao.clinic_management.domain.patient.dto.PatientDTO;
 import dev.trovao.clinic_management.domain.patient.dto.PatientRequestDTO;
+import dev.trovao.clinic_management.exception.patient.PatientNotFoundException;
 import dev.trovao.clinic_management.mapper.PatientMapper;
 import dev.trovao.clinic_management.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +36,7 @@ public class PatientService {
     }
 
     public PatientDTO updatePatientById(UUID id, PatientRequestDTO patientDto) {
-        Patient patientExisting = patientRepository.findById(id).orElseThrow();
+        Patient patientExisting = patientRepository.findById(id).orElseThrow(PatientNotFoundException::new);
         Patient patientUpdated = patientMapper.updateEntityFromDto(patientDto, patientExisting);
 
         patientRepository.save(patientUpdated);
