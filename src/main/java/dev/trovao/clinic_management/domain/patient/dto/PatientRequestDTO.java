@@ -2,8 +2,10 @@ package dev.trovao.clinic_management.domain.patient.dto;
 
 
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
 
@@ -13,15 +15,15 @@ public record PatientRequestDTO(
         String name,
 
         @NotBlank
+        @Email(message = "Invalid email.")
         String email,
 
         @NotBlank
+        @Pattern(regexp = "\\d{10,11}", message = "Invalid phone number.")
         String phoneNumber,
 
-        @NotBlank
-        @PastOrPresent
+        @PastOrPresent(message = "Invalid birth date.")
         LocalDate birthDate,
 
-        @NotBlank
         String imgUrl
 ) {}

@@ -1,6 +1,7 @@
 package dev.trovao.clinic_management.exception.handler;
 
 import dev.trovao.clinic_management.exception.model.ErrorResponse;
+import dev.trovao.clinic_management.exception.patient.PatientEmailAlreadyUsedException;
 import dev.trovao.clinic_management.exception.patient.PatientNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -57,5 +58,10 @@ public class RestExceptionHandler {
         String errorMessage = fieldError.getField() + ' ' + fieldError.getDefaultMessage();
 
         return handleErrorResponse(request, HttpStatus.BAD_REQUEST, errorMessage);
+    }
+
+    @ExceptionHandler(PatientEmailAlreadyUsedException.class)
+    public ResponseEntity<ErrorResponse> patientAlreadyExists(Exception exception, HttpServletRequest request) {
+        return handleErrorResponse(exception, request, HttpStatus.BAD_REQUEST);
     }
 }
