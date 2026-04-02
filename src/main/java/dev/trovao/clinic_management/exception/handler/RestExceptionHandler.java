@@ -55,9 +55,14 @@ public class RestExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> argumentNotValidException(MethodArgumentNotValidException exception, HttpServletRequest request) {
         FieldError fieldError = exception.getBindingResult().getFieldError();
-        String errorMessage = fieldError.getField() + ' ' + fieldError.getDefaultMessage();
 
-        return handleErrorResponse(request, HttpStatus.BAD_REQUEST, errorMessage);
+        if (fieldError != null) {
+            String errorMessage = fieldError.getField() + ' ' + fieldError.getDefaultMessage();
+
+            return handleErrorResponse(request, HttpStatus.BAD_REQUEST, errorMessage);
+        }
+
+        return handleErrorResponse(request, HttpStatus.BAD_REQUEST, "Argument not valid.");
     }
 
     @ExceptionHandler(PatientEmailAlreadyUsedException.class)
