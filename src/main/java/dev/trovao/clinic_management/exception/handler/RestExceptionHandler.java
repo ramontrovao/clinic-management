@@ -4,6 +4,7 @@ import dev.trovao.clinic_management.exception.model.ErrorResponse;
 import dev.trovao.clinic_management.exception.patient.PatientEmailAlreadyUsedException;
 import dev.trovao.clinic_management.exception.patient.PatientNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -15,28 +16,16 @@ import java.time.LocalDateTime;
 
 
 @RestControllerAdvice
+@Slf4j
 public class RestExceptionHandler {
-    public ResponseEntity<ErrorResponse> handleErrorResponse(Exception exception, HttpServletRequest request, HttpStatus httpStatus) {
+    private ResponseEntity<ErrorResponse> handleErrorResponse(HttpServletRequest request, HttpStatus httpStatus, String message) {
         ErrorResponse errorResponse = ErrorResponse
                 .builder()
                 .timestamp(LocalDateTime.now())
                 .code(httpStatus.value())
                 .status(httpStatus.name())
                 .path(request.getRequestURI())
-                .message(exception.getMessage())
-                .build();
-
-        return new ResponseEntity<>(errorResponse, httpStatus);
-    }
-
-    public ResponseEntity<ErrorResponse> handleErrorResponse(HttpServletRequest request, HttpStatus httpStatus, String errorMessage) {
-        ErrorResponse errorResponse = ErrorResponse
-                .builder()
-                .timestamp(LocalDateTime.now())
-                .code(httpStatus.value())
-                .status(httpStatus.name())
-                .path(request.getRequestURI())
-                .message(errorMessage)
+                .message(message)
                 .build();
 
         return new ResponseEntity<>(errorResponse, httpStatus);
@@ -44,12 +33,13 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> genericException(Exception exception, HttpServletRequest request) {
-        return handleErrorResponse(exception, request, HttpStatus.INTERNAL_SERVER_ERROR);
+        log.error("Internal server error", exception);
+        return handleErrorResponse(request, HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error.");
     }
 
     @ExceptionHandler(PatientNotFoundException.class)
     public ResponseEntity<ErrorResponse> notFoundException(Exception exception, HttpServletRequest request) {
-        return handleErrorResponse(exception, request, HttpStatus.NOT_FOUND);
+        return handleErrorResponse(request, HttpStatus.NOT_FOUND, exception.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -67,6 +57,6 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(PatientEmailAlreadyUsedException.class)
     public ResponseEntity<ErrorResponse> patientAlreadyExists(Exception exception, HttpServletRequest request) {
-        return handleErrorResponse(exception, request, HttpStatus.BAD_REQUEST);
+        return handleErrorResponse(request, HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 }
