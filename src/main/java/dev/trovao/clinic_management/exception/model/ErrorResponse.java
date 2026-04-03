@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -13,6 +14,6 @@ public record ErrorResponse(
         LocalDateTime timestamp,
         int code,
         String status,
-        String message,
-        String path
+        String path,
+        List<String> errors
 ) {}
