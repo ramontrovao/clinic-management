@@ -1,25 +1,23 @@
 package dev.trovao.clinic_management.domain.patient.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
 public record PatientRequestDTO(
-        @NotBlank
+        @NotBlank(message = "Name is required.")
         String name,
 
-        @NotBlank
+        @NotBlank(message = "E-mail is required.")
         @Email(message = "Invalid email.")
         String email,
 
-        @NotBlank
+        @NotBlank(message = "Phone number is required.")
         // Regex to validate phone length
         @Pattern(regexp = "\\d{10,11}", message = "Invalid phone number.")
         String phoneNumber,
 
+        @NotNull(message = "Birth date is required.")
         @PastOrPresent(message = "Invalid birth date.")
         LocalDate birthDate,
 
