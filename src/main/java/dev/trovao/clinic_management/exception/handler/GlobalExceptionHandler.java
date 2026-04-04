@@ -1,6 +1,8 @@
 package dev.trovao.clinic_management.exception.handler;
 
-import dev.trovao.clinic_management.exception.model.ErrorResponse;
+import dev.trovao.clinic_management.exception.model.error.CustomFieldError;
+import dev.trovao.clinic_management.exception.model.response.ArgumentNotValidErrorResponse;
+import dev.trovao.clinic_management.exception.model.response.GlobalErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,16 +18,16 @@ import java.util.List;
 @Slf4j
 public class GlobalExceptionHandler extends BaseExceptionHandler {
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> genericException(Exception exception, HttpServletRequest request) {
+    public ResponseEntity<GlobalErrorResponse> genericException(Exception exception, HttpServletRequest request) {
         log.error("Internal server error", exception);
-        return handleErrorResponse(request, HttpStatus.INTERNAL_SERVER_ERROR, List.of("Internal server error."));
+        return handleErrorResponse(request, HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error.");
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> argumentNotValidException(MethodArgumentNotValidException exception, HttpServletRequest request) {
+    public ResponseEntity<ArgumentNotValidErrorResponse> argumentNotValidException(MethodArgumentNotValidException exception, HttpServletRequest request) {
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
-        List<String> errorMessages = fieldErrors.stream().map(error -> error.getField() + " " + error.getDefaultMessage()).toList();
+        List<CustomFieldError> errorMessages = fieldErrors.stream().map(error -> new CustomFieldError(error.getField(), error.getDefaultMessage())).toList();
 
-        return handleErrorResponse(request, HttpStatus.BAD_REQUEST, errorMessages);
+        return handleArgumentNotValidErrorResponse(request, HttpStatus.BAD_REQUEST, errorMessages);
     }
 }
