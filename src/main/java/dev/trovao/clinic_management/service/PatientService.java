@@ -5,6 +5,7 @@ import dev.trovao.clinic_management.domain.patient.dto.PatientDTO;
 import dev.trovao.clinic_management.domain.patient.dto.PatientRequestDTO;
 import dev.trovao.clinic_management.exception.patient.PatientEmailAlreadyUsedException;
 import dev.trovao.clinic_management.exception.patient.PatientNotFoundException;
+import dev.trovao.clinic_management.exception.patient.PatientPhoneNumberAlreadyUsedException;
 import dev.trovao.clinic_management.mapper.PatientMapper;
 import dev.trovao.clinic_management.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +32,14 @@ public class PatientService {
 
     public PatientDTO createPatient(PatientRequestDTO patientDto) {
         boolean isEmailAlreadyUsed = patientRepository.existsByEmail(patientDto.email());
+        boolean isPhoneNumberAlreadyUsed = patientRepository.existsByPhoneNumber(patientDto.phoneNumber());
 
         if (isEmailAlreadyUsed) {
             throw new PatientEmailAlreadyUsedException();
+        }
+
+        if (isPhoneNumberAlreadyUsed) {
+            throw new PatientPhoneNumberAlreadyUsedException();
         }
 
         Patient patientEntity = patientMapper.toEntity(patientDto);
