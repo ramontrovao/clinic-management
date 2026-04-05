@@ -79,6 +79,12 @@ public class PatientController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a patient by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Patient deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Patient not found",
+                    content = @Content(schema = @Schema(implementation = GlobalErrorResponse.class)))
+    })
     public ResponseEntity<Object> deletePatientById(@PathVariable UUID id) {
         PatientDTO patientFound = patientService.getPatientById(id);
 
