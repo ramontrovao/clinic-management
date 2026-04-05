@@ -3,6 +3,7 @@ package dev.trovao.clinic_management.controller;
 import dev.trovao.clinic_management.domain.patient.dto.PatientDTO;
 import dev.trovao.clinic_management.domain.patient.dto.PatientRequestDTO;
 import dev.trovao.clinic_management.exception.model.response.ArgumentNotValidErrorResponse;
+import dev.trovao.clinic_management.exception.model.response.GlobalErrorResponse;
 import dev.trovao.clinic_management.exception.patient.PatientNotFoundException;
 import dev.trovao.clinic_management.service.PatientService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -48,6 +49,13 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get a patient by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Patient found",
+                    content = @Content(schema = @Schema(implementation = PatientDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Patient not found",
+                    content = @Content(schema = @Schema(implementation = GlobalErrorResponse.class)))
+    })
     public ResponseEntity<PatientDTO> getPatientById(@PathVariable UUID id) {
         PatientDTO patientFound = patientService.getPatientById(id);
 
