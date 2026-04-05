@@ -67,6 +67,13 @@ public class PatientController {
     }
 
     @PatchMapping("/{id}")
+    @Operation(summary = "Update a patient by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Patient updated successfully",
+                    content = @Content(schema = @Schema(implementation = PatientDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Patient not found",
+                    content = @Content(schema = @Schema(implementation = GlobalErrorResponse.class)))
+    })
     public ResponseEntity<PatientDTO> updatePatientById(@PathVariable @Valid UUID id, @RequestBody PatientRequestDTO patientDto) {
         return ResponseEntity.ok(patientService.updatePatientById(id, patientDto));
     }
