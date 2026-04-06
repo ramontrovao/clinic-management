@@ -1,26 +1,23 @@
-package dev.trovao.clinic_management.domain.patient;
+package dev.trovao.clinic_management.domain.doctor;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "patients")
+@Table(name = "doctors")
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Patient {
+public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -28,23 +25,29 @@ public class Patient {
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "birth_date", nullable = false)
+    @Column(name = "birthDate", nullable = false)
     private LocalDate birthDate;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String email;
 
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
+
+    @Column(name = "graduation_date", nullable = false)
+    private LocalDate graduationDate;
+
+    @Column(nullable = false)
+    private DoctorSpeciality speciality;
 
     @Column(name = "img_url")
     private String imgUrl;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Instant createdAt;
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(name = "updated_at", nullable = false)
-    private Instant updatedAt;
+    @Column(name = "updated_at",nullable = false)
+    private LocalDateTime updatedAt;
 }
