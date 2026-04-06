@@ -2,6 +2,8 @@ package dev.trovao.clinic_management.domain.doctor;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -25,7 +27,7 @@ public class Doctor {
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "birthDate", nullable = false)
+    @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
     @Column(nullable = false)
@@ -37,6 +39,8 @@ public class Doctor {
     @Column(name = "graduation_date", nullable = false)
     private LocalDate graduationDate;
 
+    @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     @Column(nullable = false)
     private DoctorSpeciality speciality;
 
