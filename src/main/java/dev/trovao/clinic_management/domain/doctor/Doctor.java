@@ -40,6 +40,12 @@ public class Doctor {
     @Column(nullable = false)
     private DoctorSpeciality speciality;
 
+    @Column(nullable = false)
+    private String councilRegistry;
+
+    @Column(nullable = false)
+    private String specialityRegistry;
+
     @Column(name = "img_url")
     private String imgUrl;
 
