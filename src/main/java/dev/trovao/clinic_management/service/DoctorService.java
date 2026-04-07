@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -20,4 +21,10 @@ public class DoctorService {
 
         return doctorMapper.toDtoList(doctorList);
     }
+
+    public DoctorDTO getDoctorById(UUID id) {
+        Doctor doctor = doctorRepository.findById(id).orElse(null);
+
+        return doctorMapper.toDto(doctor);
+    };
 }
