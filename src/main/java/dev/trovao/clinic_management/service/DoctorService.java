@@ -27,4 +27,8 @@ public class DoctorService {
 
         return doctorMapper.toDto(doctor);
     };
+
+    public void deleteDoctorById(UUID id) {
+        doctorRepository.deleteById(id);
+    }
 }
