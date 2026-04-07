@@ -2,6 +2,7 @@ package dev.trovao.clinic_management.service;
 
 import dev.trovao.clinic_management.domain.doctor.Doctor;
 import dev.trovao.clinic_management.domain.doctor.dto.DoctorDTO;
+import dev.trovao.clinic_management.domain.doctor.dto.DoctorRequestDTO;
 import dev.trovao.clinic_management.mapper.DoctorMapper;
 import dev.trovao.clinic_management.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,13 @@ public class DoctorService {
 
         return doctorMapper.toDto(doctor);
     };
+
+    public DoctorDTO createDoctor(DoctorRequestDTO doctorRequestDTO) {
+        Doctor doctorEntity = doctorMapper.toEntity(doctorRequestDTO);
+        Doctor createdDoctor = doctorRepository.save(doctorEntity);
+
+        return doctorMapper.toDto(createdDoctor);
+    }
 
     public void deleteDoctorById(UUID id) {
         doctorRepository.deleteById(id);
