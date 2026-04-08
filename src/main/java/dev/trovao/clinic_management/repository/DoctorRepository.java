@@ -6,5 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface DoctorRepository extends JpaRepository<Doctor, UUID> {
-    Doctor findByNationalId(String nationalId);
+    boolean existsByNationalId(String nationalId);
+    boolean existsByCouncilRegistry(String nationalId);
+    boolean existsBySpecialityRegistry(String nationalId);
 }

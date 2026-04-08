@@ -5,14 +5,12 @@ import dev.trovao.clinic_management.exception.patient.PatientEmailAlreadyUsedExc
 import dev.trovao.clinic_management.exception.patient.PatientNotFoundException;
 import dev.trovao.clinic_management.exception.patient.PatientPhoneNumberAlreadyUsedException;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@Slf4j
 @RestControllerAdvice
 @Order(1)
 public class PatientExceptionHandler extends BaseExceptionHandler {
