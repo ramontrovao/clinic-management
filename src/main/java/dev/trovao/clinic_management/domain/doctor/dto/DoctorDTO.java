@@ -13,6 +13,7 @@ public record DoctorDTO(
      String email,
      String phoneNumber,
      LocalDate graduationDate,
+     String nationalId,
      DoctorSpeciality speciality,
      String councilRegistry,
      String specialityRegistry,

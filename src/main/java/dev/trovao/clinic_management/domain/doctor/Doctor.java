@@ -33,6 +33,9 @@ public class Doctor {
     @Column(nullable = false)
     private String email;
 
+    @Column(name = "national_id")
+    private String nationalId;
+
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 

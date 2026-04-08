@@ -1,0 +1,1 @@
+ALTER TABLE doctors ADD COLUMN national_id VARCHAR(255) NOT NULL;

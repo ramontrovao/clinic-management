@@ -18,6 +18,9 @@ public record DoctorRequestDTO(
      @Email(message = "E-mail is invalid.")
      String email,
 
+     @NotBlank(message = "National id is required.")
+     String nationalId,
+
      @NotBlank(message = "Phone number is required.")
      @Pattern(regexp = "\\d{10,11}", message = "Invalid phone number.")
      String phoneNumber,
