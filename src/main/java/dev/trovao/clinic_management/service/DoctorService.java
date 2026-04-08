@@ -17,6 +17,15 @@ public class DoctorService {
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
 
+    public DoctorDTO createDoctor(DoctorRequestDTO doctorRequestDTO) {
+
+
+        Doctor doctorEntity = doctorMapper.toEntity(doctorRequestDTO);
+        Doctor createdDoctor = doctorRepository.save(doctorEntity);
+
+        return doctorMapper.toDto(createdDoctor);
+    }
+
     public List<DoctorDTO> getAllDoctors() {
         List<Doctor> doctorList = doctorRepository.findAll();
 
@@ -28,13 +37,6 @@ public class DoctorService {
 
         return doctorMapper.toDto(doctor);
     };
-
-    public DoctorDTO createDoctor(DoctorRequestDTO doctorRequestDTO) {
-        Doctor doctorEntity = doctorMapper.toEntity(doctorRequestDTO);
-        Doctor createdDoctor = doctorRepository.save(doctorEntity);
-
-        return doctorMapper.toDto(createdDoctor);
-    }
 
     public void deleteDoctorById(UUID id) {
         doctorRepository.deleteById(id);

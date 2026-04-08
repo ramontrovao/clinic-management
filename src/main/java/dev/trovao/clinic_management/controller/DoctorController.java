@@ -17,14 +17,14 @@ import java.util.UUID;
 public class DoctorController {
     private final DoctorService doctorService;
 
-    @GetMapping
-    public ResponseEntity<List<DoctorDTO>> getAllDoctors() {
-        return ResponseEntity.ok(doctorService.getAllDoctors());
-    }
-
     @PostMapping
     public ResponseEntity<DoctorDTO> createDoctor(@RequestBody DoctorRequestDTO doctorDto) {
         return new ResponseEntity<>(doctorService.createDoctor(doctorDto), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DoctorDTO>> getAllDoctors() {
+        return ResponseEntity.ok(doctorService.getAllDoctors());
     }
 
     @GetMapping
