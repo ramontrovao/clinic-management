@@ -47,10 +47,10 @@ public class Doctor {
     @Column(nullable = false)
     private DoctorSpeciality speciality;
 
-    @Column(nullable = false)
+    @Column(name= "council_registry", nullable = false)
     private String councilRegistry;
 
-    @Column(nullable = false)
+    @Column(name = "speciality_registry", nullable = false)
     private String specialityRegistry;
 
     @Column(name = "img_url")
