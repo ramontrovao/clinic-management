@@ -27,14 +27,12 @@ public class DoctorController {
         return ResponseEntity.ok(doctorService.getAllDoctors());
     }
 
-    @GetMapping
-    @RequestMapping("/:id")
+    @GetMapping("/{id}")
     public ResponseEntity<DoctorDTO> getDoctorById(@PathVariable UUID id) {
         return ResponseEntity.ok(doctorService.getDoctorById(id));
-    };
+    }
 
-    @DeleteMapping
-    @RequestMapping("/:id")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDoctorById(@PathVariable UUID id) {
         doctorService.deleteDoctorById(id);
 
