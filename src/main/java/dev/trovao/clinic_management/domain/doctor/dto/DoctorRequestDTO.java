@@ -29,7 +29,7 @@ public record DoctorRequestDTO(
      @Past(message = "Invalid graduation date.")
      LocalDate graduationDate,
 
-     @NotBlank(message = "Speciality is required.")
+     @NotNull(message = "Speciality is required.")
      DoctorSpeciality speciality,
 
      @NotBlank(message = "Council registry is required.")
